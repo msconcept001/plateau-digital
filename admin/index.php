@@ -1,0 +1,9 @@
+<?php
+require_once __DIR__.'/../includes/functions.php'; require_admin();
+$counts=[]; foreach(['businesses'=>'Business listings','talent_profiles'=>'Talent profiles','courses'=>'Courses','service_requests'=>'Service requests','contact_messages'=>'Messages'] as $t=>$label){$counts[$t]=(int)db()->query("SELECT COUNT(*) FROM `$t`")->fetchColumn();}
+$pending=(int)db()->query("SELECT COUNT(*) FROM businesses WHERE status='pending'")->fetchColumn();
+$pageTitle='Dashboard'; include __DIR__.'/_header.php'; ?>
+<div class="dash-top"><div><span class="eyebrow">Control centre</span><h1>Welcome, <?=e($_SESSION['admin_name']??'Administrator')?></h1><p>Manage the Plateau Digital ecosystem from one place.</p></div><a class="btn btn-outline" href="../index.php" target="_blank">View website ↗</a></div>
+<div class="stats-grid"><?php foreach(['businesses'=>'Business listings','talent_profiles'=>'Talent profiles','courses'=>'Courses','service_requests'=>'Service requests','contact_messages'=>'Messages'] as $key=>$label):?><article class="stat-card"><span><?=e($label)?></span><strong><?=$counts[$key]?></strong></article><?php endforeach;?></div>
+<section class="dash-panel"><h2>Administration workspace</h2><p>Review submissions, publish approved content and keep the four pillars up to date.</p><div class="admin-link-grid"><a href="businesses.php"><strong>Business directory</strong><span><?=$pending?> pending review · Manage listings →</span></a><a href="talents.php"><strong>Talent network</strong><span>Review and publish talent profiles →</span></a><a href="courses.php"><strong>Digital academy</strong><span>Create and publish courses →</span></a><a href="requests.php"><strong>Business technology</strong><span>Track client service requests →</span></a><a href="messages.php"><strong>Contact messages</strong><span>Read enquiries from visitors →</span></a></div></section>
+<?php include __DIR__.'/_footer.php'; ?>

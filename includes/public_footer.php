@@ -1,0 +1,1 @@
+<footer class="footer"><div><strong>Plateau Digital</strong><p>Discover. Connect. Learn. Grow.</p></div><div><span>An initiative of M &amp; Associates Innovation Hub</span><small>© <?=date('Y')?> Plateau Digital</small></div></footer></body></html>
